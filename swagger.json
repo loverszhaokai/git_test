@@ -15,7 +15,7 @@
             "description":"Access to Petstore orders"
         },
         {
-            "name":"user",
+            "name":"用户",
             "description":"Operations about user",
             "externalDocs":{"description":"Find out more about our store","url":"http://swagger.io"}
         }
