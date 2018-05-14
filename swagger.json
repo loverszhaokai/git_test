@@ -1,0 +1,768 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "beta",
+    "title" : "",
+    "contact" : {
+      "name" : ""
+    },
+    "license" : {
+      "name" : "",
+      "url" : "http://licenseUrl"
+    }
+  },
+  "host" : "cl-k8s.yidian-inc.com",
+  "basePath" : "/apis",
+  "tags" : [ {
+    "name" : "腾讯投诉文章"
+  }, {
+    "name" : "线上相似文章"
+  }, {
+    "name" : "worldcup"
+  } ],
+  "paths" : {
+    "/simcopyright/tencent-complain/docinfos" : {
+      "get" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "根据查询条件搜索文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@docDetails",
+        "parameters" : [ {
+          "name" : "start",
+          "in" : "query",
+          "description" : "起始时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "结束时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "audit",
+          "in" : "query",
+          "description" : "审核状态",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "category",
+          "in" : "query",
+          "description" : "分类",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "content_source",
+          "in" : "query",
+          "description" : "源类型",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "jump",
+          "in" : "query",
+          "description" : "页面跳转情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "coop",
+          "in" : "query",
+          "description" : "合作情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "in_store",
+          "in" : "query",
+          "description" : "入库方式",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "跳过个数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "返回个数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/DocInfos"
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid query",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/tencent-complain/count" : {
+      "get" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "满足查询条件的文章个数",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@docCount",
+        "parameters" : [ {
+          "name" : "start",
+          "in" : "query",
+          "description" : "起始时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "结束时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "audit",
+          "in" : "query",
+          "description" : "审核状态",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "category",
+          "in" : "query",
+          "description" : "分类",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "content_source",
+          "in" : "query",
+          "description" : "源类型",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "jump",
+          "in" : "query",
+          "description" : "页面跳转情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "coop",
+          "in" : "query",
+          "description" : "合作情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "in_store",
+          "in" : "query",
+          "description" : "入库方式",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          },
+          "400" : {
+            "description" : "invalid query",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/tencent-complain/doc/{docid}" : {
+      "get" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "根据id查询文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@findDocById",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DocInfos"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/tencent-complain/author/{author}" : {
+      "get" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "根据作者查询文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@findDocByAuthor",
+        "parameters" : [ {
+          "name" : "author",
+          "in" : "path",
+          "description" : "作者",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DocInfos"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/tencent-complain/remove/{docid}" : {
+      "post" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "删除文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@docDelete",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "操作员+原因+自媒体",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateRequestInfo"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UpdateResponseInfo"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/tencent-complain/recover/{docid}" : {
+      "post" : {
+        "tags" : [ "腾讯投诉文章" ],
+        "summary" : "恢复文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.TencentComplainController@docRecover",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "操作员+原因+自媒体",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateRequestInfo"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UpdateResponseInfo"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/docinfos" : {
+      "get" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "根据查询条件搜索文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@docDetails",
+        "parameters" : [ {
+          "name" : "start",
+          "in" : "query",
+          "description" : "起始时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "结束时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "audit",
+          "in" : "query",
+          "description" : "审核状态",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "category",
+          "in" : "query",
+          "description" : "分类",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "content_source",
+          "in" : "query",
+          "description" : "源类型",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "jump",
+          "in" : "query",
+          "description" : "页面跳转情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "coop",
+          "in" : "query",
+          "description" : "合作情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "in_store",
+          "in" : "query",
+          "description" : "入库方式",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "跳过个数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "返回个数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 100,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/DocInfos"
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid query",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/count" : {
+      "get" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "满足查询条件的文章个数",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@docCount",
+        "parameters" : [ {
+          "name" : "start",
+          "in" : "query",
+          "description" : "起始时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "end",
+          "in" : "query",
+          "description" : "结束时间(ms)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "audit",
+          "in" : "query",
+          "description" : "审核状态",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "category",
+          "in" : "query",
+          "description" : "分类",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "content_source",
+          "in" : "query",
+          "description" : "源类型",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "jump",
+          "in" : "query",
+          "description" : "页面跳转情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "coop",
+          "in" : "query",
+          "description" : "合作情况",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "in_store",
+          "in" : "query",
+          "description" : "入库方式",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          },
+          "400" : {
+            "description" : "invalid query",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/doc/{docid}" : {
+      "get" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "根据id查询文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@findDocById",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DocInfos"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/author/{author}" : {
+      "get" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "根据作者查询文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@findDocByAuthor",
+        "parameters" : [ {
+          "name" : "author",
+          "in" : "path",
+          "description" : "作者",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DocInfos"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/remove/{docid}" : {
+      "post" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "删除文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@docDelete",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "操作员+原因+自媒体",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateRequestInfo"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UpdateResponseInfo"
+            }
+          }
+        }
+      }
+    },
+    "/simcopyright/doc-sim/recover/{docid}" : {
+      "post" : {
+        "tags" : [ "线上相似文章" ],
+        "summary" : "恢复文章",
+        "description" : "",
+        "operationId" : "controllers.simcopyright.DocSimController@docRecover",
+        "parameters" : [ {
+          "name" : "docid",
+          "in" : "path",
+          "description" : "文章id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "操作员+原因+自媒体",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateRequestInfo"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UpdateResponseInfo"
+            }
+          }
+        }
+      }
+    },
+    "/worldcup/playerstats" : {
+      "get" : {
+        "tags" : [ "世界杯" ],
+        "summary" : "射手榜",
+        "description" : "",
+        "operationId" : "controllers.WorldCupController@playerStats",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PlayerStats"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "DocInfos" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "description" : "标题"
+        },
+        "author" : {
+          "type" : "string",
+          "description" : "作者"
+        },
+        "insert_time" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "入库时间"
+        },
+        "from_site" : {
+          "type" : "string",
+          "description" : "来源网站"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "id"
+        },
+        "category" : {
+          "type" : "string",
+          "description" : "分类"
+        },
+        "content_source" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "内容源"
+        },
+        "jump" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "跳转情况"
+        },
+        "coop" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "合作情况"
+        },
+        "in_store" : {
+          "type" : "string",
+          "description" : "入库方式"
+        },
+        "similar_url" : {
+          "type" : "string",
+          "description" : "腾讯相似url"
+        },
+        "similar" : {
+          "type" : "array",
+          "description" : "腾讯相似docs",
+          "items" : {
+            "$ref" : "#/definitions/TencentSimilarDoc"
+          }
+        },
+        "url" : {
+          "type" : "string",
+          "description" : "文章url"
+        }
+      }
+    },
+    "TencentSimilarDoc" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "description" : "标题"
+        },
+        "insert_time" : {
+          "type" : "string",
+          "description" : "入库时间"
+        },
+        "author" : {
+          "type" : "string",
+          "description" : "作者"
+        },
+        "url" : {
+          "type" : "string",
+          "description" : "url"
+        },
+        "from_site" : {
+          "type" : "string",
+          "description" : "来源网站"
+        },
+        "score" : {
+          "type" : "string",
+          "description" : "相似分"
+        }
+      }
+    },
+    "UpdateResponseInfo" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "返回代码"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "错误原因"
+        }
+      }
+    },
+    "UpdateRequestInfo" : {
+      "type" : "object",
+      "properties" : {
+        "comments" : {
+          "type" : "string",
+          "description" : "原因注释"
+        },
+        "operator" : {
+          "type" : "string",
+          "description" : "操作员id"
+        },
+        "wemedia" : {
+          "type" : "boolean",
+          "description" : "是否是自媒体"
+        }
+      }
+    },
+    "PlayerStats" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "球员"
+        },
+        "country" : {
+          "type" : "string",
+          "description" : "国家"
+        },
+        "min" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "出场时间"
+        },
+        "assists" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "助攻"
+        },
+        "goals" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "进球"
+        },
+        "penalty" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "点球"
+        }
+      }
+    }
+  }
+}
